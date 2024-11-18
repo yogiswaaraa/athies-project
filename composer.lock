@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "071932fc77f95477cb014ca9c6d9152d",
+    "content-hash": "1572ebb70652a850d19b9f8e13b58fc7",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3134,6 +3134,66 @@
             "time": "2024-10-15T19:35:06+00:00"
         },
         {
+            "name": "mallardduck/blade-lucide-icons",
+            "version": "1.23.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mallardduck/blade-lucide-icons.git",
+                "reference": "19081819bb527e15eed22f6528b9d059c1a8df8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mallardduck/blade-lucide-icons/zipball/19081819bb527e15eed22f6528b9d059c1a8df8b",
+                "reference": "19081819bb527e15eed22f6528b9d059c1a8df8b",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.6",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "ext-fileinfo": "*",
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5|^11.0",
+                "spatie/phpunit-snapshot-assertions": "^4.2.14"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MallardDuck\\LucideIcons\\BladeLucideIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MallardDuck\\LucideIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Pock"
+                }
+            ],
+            "description": "A package to easily make use of Lucide icons in your Laravel Blade views.",
+            "homepage": "https://github.com/mallardduck/blade-lucide-icons",
+            "keywords": [
+                "LucideIcons",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/mallardduck/blade-lucide-icons/issues",
+                "source": "https://github.com/mallardduck/blade-lucide-icons/tree/1.23.0"
+            },
+            "time": "2024-07-22T15:40:39+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -4712,6 +4772,68 @@
                 }
             ],
             "time": "2024-02-26T18:08:49+00:00"
+        },
+        {
+            "name": "ryangjchandler/blade-tabler-icons",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ryangjchandler/blade-tabler-icons.git",
+                "reference": "cd359f5d3b406a982dae1aaaf121d84067576a2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ryangjchandler/blade-tabler-icons/zipball/cd359f5d3b406a982dae1aaaf121d84067576a2e",
+                "reference": "cd359f5d3b406a982dae1aaaf121d84067576a2e",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.5",
+                "illuminate/support": "^10.0 || ^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.14",
+                "orchestra/testbench": "^8.0 || ^9.0",
+                "phpunit/phpunit": "^9.5.10 || ^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RyanChandler\\TablerIcons\\BladeTablerIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RyanChandler\\TablerIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Chandler",
+                    "email": "support@ryangjchandler.co.uk",
+                    "homepage": "https://ryangjchandler.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to easily make use of Tabler icons in your Laravel Blade views.",
+            "homepage": "https://github.com/ryangjchandler/blade-tabler-icons",
+            "keywords": [
+                "blade",
+                "laravel",
+                "tabler"
+            ],
+            "support": {
+                "issues": "https://github.com/ryangjchandler/blade-tabler-icons/issues",
+                "source": "https://github.com/ryangjchandler/blade-tabler-icons/tree/v2.3.0"
+            },
+            "time": "2024-03-12T23:54:24+00:00"
         },
         {
             "name": "spatie/color",
@@ -9684,5 +9806,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

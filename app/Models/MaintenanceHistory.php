@@ -16,6 +16,11 @@ class MaintenanceHistory extends Model
         'result'
     ];
 
+    public static $result_enum_array = [
+        'success',
+        'partial',
+        'failed'
+    ];
     protected $casts = [
         'maintenance_date' => 'date'
     ];
