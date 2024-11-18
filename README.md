@@ -1,1 +1,1 @@
-# athies-project
+# aties-project
