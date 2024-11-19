@@ -10,7 +10,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListBuildings extends ListRecords
 {
     protected static string $resource = BuildingResource::class;
-    protected ?string $heading = 'Nama Gedung';
+    protected ?string $heading = 'jenis Gedung';
 
     protected function getHeaderActions(): array
     {
