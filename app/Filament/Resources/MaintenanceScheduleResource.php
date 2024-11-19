@@ -20,7 +20,7 @@ class MaintenanceScheduleResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-c-calendar-days';
     protected static ?string $navigationGroup = 'Perawatan';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'Jawdal Perawatan';
+    protected static ?string $navigationLabel = 'Jadwal Perawatan';
     
     public static function form(Form $form): Form
     {
