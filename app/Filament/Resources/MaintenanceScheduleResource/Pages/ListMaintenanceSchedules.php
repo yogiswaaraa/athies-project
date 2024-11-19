@@ -10,6 +10,14 @@ class ListMaintenanceSchedules extends ListRecords
 {
     protected static string $resource = MaintenanceScheduleResource::class;
     protected ?string $heading = 'Jadwal Pemeliharaan';
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            MaintenanceScheduleResource\Widgets\KetepatanPerawatan::class,
+        ];
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -64,4 +64,11 @@ class MaintenanceScheduleResource extends Resource
             'edit' => Pages\EditMaintenanceSchedule::route('/{record}/edit'),
         ];
     }
+
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\MaintenanceScheduleResource\Widgets\KetepatanPerawatan::class,
+        ];
+    }
 }
