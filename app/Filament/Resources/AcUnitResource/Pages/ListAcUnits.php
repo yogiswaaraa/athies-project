@@ -12,6 +12,13 @@ class ListAcUnits extends ListRecords
 
     protected ?string $heading = 'Unit AC';
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            AcUnitResource\Widgets\ACChart::class,
+        ];
+    }
+
     protected function getHeaderActions(): array
     {
         return [

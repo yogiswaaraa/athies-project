@@ -23,6 +23,13 @@ class AcUnitResource extends Resource
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Unit';
 
+    public static function getWidgets(): array
+{
+    return [
+        AcUnitResource\Widgets\ACChart::class,
+    ];
+}
+
     public static function form(Form $form): Form
     {
         return $form
@@ -115,6 +122,7 @@ class AcUnitResource extends Resource
             'index' => Pages\ListAcUnits::route('/'),
             'create' => Pages\CreateAcUnit::route('/create'),
             'edit' => Pages\EditAcUnit::route('/{record}/edit'),
+            'test' => Pages\Testing::route('/test'),
         ];
     }
 }
