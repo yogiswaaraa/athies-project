@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AcUnit>
  */
-class ACUnitFactory extends Factory
+class AcUnitFactory extends Factory
 {
     /**
      * Define the model's default state.
