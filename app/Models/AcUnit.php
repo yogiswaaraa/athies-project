@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcUnit extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'building_id',
         'unit_code',
@@ -24,6 +27,9 @@ class AcUnit extends Model
         'current_temperature' => 'float',
         'efficiency_rating' => 'float'
     ];
+
+    public static $ac_models = ['ducting', 'split', 'window', 'standing', 'portable', 'smart'];
+    public static $ac_statuses = ['active', 'maintenance', 'inactive'];
 
     public function building(): BelongsTo
     {

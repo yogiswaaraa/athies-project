@@ -23,25 +23,31 @@ class AcConditionLogResource extends Resource
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Riwayat Kondisi';
 
+    public static function schema(): array
+    {
+        return [
+            Forms\Components\Select::make('ac_unit_id')
+                ->relationship('acUnit', 'id')
+                ->required(),
+            Forms\Components\TextInput::make('temperature')
+                ->required()
+                ->numeric(),
+            Forms\Components\TextInput::make('humidity')
+                ->numeric(),
+            Forms\Components\TextInput::make('power_consumption')
+                ->numeric(),
+            Forms\Components\TextInput::make('efficiency_rating')
+                ->numeric(),
+            Forms\Components\DateTimePicker::make('logged_at')
+                ->required(),
+        ];
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('ac_unit_id')
-                    ->relationship('acUnit', 'id')
-                    ->required(),
-                Forms\Components\TextInput::make('temperature')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('humidity')
-                    ->numeric(),
-                Forms\Components\TextInput::make('power_consumption')
-                    ->numeric(),
-                Forms\Components\TextInput::make('efficiency_rating')
-                    ->numeric(),
-                Forms\Components\DateTimePicker::make('logged_at')
-                    ->required(),
-            ]);
+            ->schema(AcConditionLogResource::schema());
     }
 
     public static function table(Table $table): Table
