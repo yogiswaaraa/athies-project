@@ -24,11 +24,20 @@ class ListAcConditionLogs extends ListRecords
                 ->form([
                     // AcConditionLogResource::schema()
                     Forms\Components\TextInput::make('temperature')
-                        ->required()
+
                 ])
                 ->action(function (array $data): void {
+                    $dummy = [
+                        'temperature' => 10,
+                        'ac_unit_id' => 1,
+                        'humidity' => 10,
+                        'power_consumption' => 10
+                    ];
+
                     $mqService = new RabbitMQService();
-                    $mqService->publish("{temprature: 10}");
+
+
+                    $mqService->publish(json_encode($dummy));
 
                     return;
                 })

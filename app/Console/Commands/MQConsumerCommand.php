@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\AcConditionLog;
 use Illuminate\Console\Command;
 use App\Services\RabbitMQService;
 
@@ -27,6 +28,26 @@ class MQConsumerCommand extends Command
     public function handle(): void
     {
         $mqService = new RabbitMQService();
-        $mqService->consume();
+
+        $callback = function ($msg) {
+            $payload_string = $msg->body;
+            $payload = json_decode($payload_string, true);
+
+            echo " [x] Received ", $payload_string, "\n";
+
+            // TODO: Calculate real efficiency rating
+            $efficiency_rating = $payload['power_consumption'] / $payload['temperature'];
+
+            AcConditionLog::create([
+                'ac_unit_id' => $payload['ac_unit_id'],
+                'temperature' => floatval($payload['temperature']),
+                'humidity' => $payload['humidity'],
+                'power_consumption' => $payload['power_consumption'],
+                'efficiency_rating' => $efficiency_rating,
+                'logged_at' => now(),
+            ]);
+        };
+
+        $mqService->consume($callback);
     }
 }

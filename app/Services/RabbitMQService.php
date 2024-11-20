@@ -33,7 +33,7 @@ class RabbitMQService
         $connection->close();
     }
 
-    public function consume()
+    public function consume(callable|null $callback = null)
     {
         $connection = new AMQPStreamConnection(
             env('MQ_HOST'),
@@ -48,9 +48,8 @@ class RabbitMQService
             3.0 // connection_timeout
         );
         $channel = $connection->channel();
-        $callback = function ($msg) {
-            echo ' [x] Received ', $msg->body, "\n";
-        };
+
+
         $channel->queue_declare('test_queue', false, false, false, false);
         $channel->basic_consume('test_queue', '', false, true, false, false, $callback);
         echo 'Waiting for new message on test_queue', " \n";
