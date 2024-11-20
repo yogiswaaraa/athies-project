@@ -9,7 +9,6 @@ use Filament\Resources\Pages\EditRecord;
 class EditMaintenanceSchedule extends EditRecord
 {
     protected static string $resource = MaintenanceScheduleResource::class;
-    protected ?string $heading = 'Ubah Jadwal Pemeliharaan';
 
     protected function getHeaderActions(): array
     {

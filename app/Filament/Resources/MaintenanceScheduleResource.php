@@ -16,17 +16,27 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MaintenanceScheduleResource extends Resource
 {
     protected static ?string $model = MaintenanceSchedule::class;
-
     protected static ?string $navigationIcon = 'heroicon-c-calendar-days';
     protected static ?string $navigationGroup = 'Perawatan';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'Jawdal Perawatan';
-    
+    protected static ?string $navigationLabel = 'Jadwal Perawatan';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('ac_unit_id')
+                    ->relationship('acUnit', 'id')
+                    ->required(),
+                Forms\Components\DatePicker::make('scheduled_date')
+                    ->required(),
+                Forms\Components\TextInput::make('type')
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('status')
+                    ->required(),
+                Forms\Components\DatePicker::make('completed_date'),
             ]);
     }
 
@@ -34,7 +44,27 @@ class MaintenanceScheduleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('acUnit.id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('scheduled_date')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('completed_date')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
