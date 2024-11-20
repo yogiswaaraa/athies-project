@@ -35,7 +35,8 @@ class AcUnitResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('unit_code')
                     ->required(),
-                Forms\Components\TextInput::make('model')
+                Forms\Components\Select::make('model')
+                    ->options(AcUnit::$ac_models)
                     ->required(),
                 Forms\Components\TextInput::make('serial_number')
                     ->required(),

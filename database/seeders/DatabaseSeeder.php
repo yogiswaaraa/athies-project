@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\AcUnit;
+use App\Models\Building;
+use App\Models\MaintenanceSchedule;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +18,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'yuanda',
+        //     'email' => 'yuanda@mail.com',
+        //     'password' => bcrypt('12345678'),
+        // ]);
+
+        Building::factory()
+            ->count(10)
+            ->create();
+
+        AcUnit::factory()
+            ->count(50)
+            ->create();
+
+        MaintenanceSchedule::factory()
+            ->count(10)
+            ->create();
     }
 }
