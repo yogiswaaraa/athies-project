@@ -66,21 +66,26 @@ class MaintenanceScheduleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('acUnit.unit_code')
-                    ->label('AC Unit'),
+                    ->label('AC Unit')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('scheduled_date')
                     ->label('Tanggal Terjadwal')
-                    ->date(),
+                    ->date()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->label('Tipe'),
+                    ->label('Tipe')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('completed_date')
                     ->label('Tanggal Selesai')
-                    ->date(),
+                    ->date()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diperbarui Pada')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -89,7 +94,8 @@ class MaintenanceScheduleResource extends Resource
                     'completed' => 'Completed',
                     'cancelled' => 'Cancelled',
                 ])
-                ->label('Status'),
+                ->label('Status')
+                ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
