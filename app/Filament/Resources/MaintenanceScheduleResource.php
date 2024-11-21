@@ -28,10 +28,14 @@ class MaintenanceScheduleResource extends Resource
                 Forms\Components\Select::make('ac_unit_id')
                     ->relationship('acUnit', 'unit_code')
                     ->required()
-                    ->label('AC Unit'),
+                    ->label('AC Unit')
+                    ->native(false)
+                    ->searchable()
+                    ->preload(),
                 Forms\Components\DatePicker::make('scheduled_date')
                     ->required()
-                    ->label('Tanggal Terjadwal'),
+                    ->label('Tanggal Terjadwal')
+                    ->native(false),
                 Forms\Components\Select::make('type')
                     ->options([
                         'routine' => 'Routine',
@@ -52,7 +56,8 @@ class MaintenanceScheduleResource extends Resource
                     ->required()
                     ->label('Status'),
                 Forms\Components\DatePicker::make('completed_date')
-                    ->label('Tanggal Selesai'),
+                    ->label('Tanggal Selesai')
+                    ->native(false),
             ]);
     }
 
