@@ -44,7 +44,7 @@ class MQConsumerCommand extends Command
                 'humidity' => $payload['humidity'],
                 'power_consumption' => $payload['power_consumption'],
                 'efficiency_rating' => $efficiency_rating,
-                'logged_at' => now(),
+                'logged_at' => $payload['logged_at'],
             ]);
         };
 

@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\AcConditionLogResource\Pages;
 
 use App\Filament\Resources\AcConditionLogResource;
+use App\Filament\Resources\AcConditionLogResource\Widgets;
+use App\Models\AcConditionLog;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\View\View;
@@ -16,7 +18,7 @@ class ListAcConditionLogs extends ListRecords
     protected ?string $heading = 'Riwayat Kondisi Unit AC';
 
 
-    public function publishMessage(): void
+    public function publishMessage($sub_day = 0): void
     {
         $mqService = new RabbitMQService();
         $dummy = [
@@ -24,6 +26,7 @@ class ListAcConditionLogs extends ListRecords
             'ac_unit_id' => fake()->randomNumber(1, 10),
             'humidity' => fake()->randomFloat(2, 40, 60),
             'power_consumption' => fake()->randomNumber(1, 10),
+            'logged_at' => now()->subDays($sub_day),
         ];
 
 
@@ -33,8 +36,20 @@ class ListAcConditionLogs extends ListRecords
     public function publishNTimes(int $n): void
     {
         for ($i = 0; $i < $n; $i++) {
-            $this->publishMessage();
+            $this->publishMessage($n - $i);
         }
+    }
+
+    public function reset_data(): void
+    {
+        AcConditionLog::truncate();
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            Widgets\PowerTempratureEviciencyChart::class
+        ];
     }
 
     protected function getHeaderActions(): array

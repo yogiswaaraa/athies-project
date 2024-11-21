@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AcConditionLogResource\Pages;
+use App\Filament\Resources\AcConditionLogResource\Widgets;
 use App\Filament\Resources\AcConditionLogResource\RelationManagers;
 use App\Models\AcConditionLog;
 use Filament\Forms;
@@ -85,6 +86,14 @@ class AcConditionLogResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+
+    public static function getWidgets(): array
+    {
+        return [
+            Widgets\PowerTempratureEviciencyChart::class
+        ];
     }
 
     public static function getRelations(): array
