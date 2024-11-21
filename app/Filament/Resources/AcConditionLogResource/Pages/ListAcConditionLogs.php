@@ -9,7 +9,7 @@ use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\View\View;
 use App\Services\RabbitMQService;
-
+use Carbon\Carbon;
 
 class ListAcConditionLogs extends ListRecords
 {
@@ -26,9 +26,8 @@ class ListAcConditionLogs extends ListRecords
             'ac_unit_id' => fake()->randomNumber(1, 10),
             'humidity' => fake()->randomFloat(2, 40, 60),
             'power_consumption' => fake()->randomNumber(1, 10),
-            'logged_at' => now()->subDays($sub_day),
+            'logged_at' => Carbon::now()->subDays($sub_day),
         ];
-
 
         $mqService->publish(json_encode($dummy));
     }
