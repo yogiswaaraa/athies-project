@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\AcConditionLogExporter;
 use App\Filament\Resources\AcConditionLogResource\Pages;
 use App\Filament\Resources\AcConditionLogResource\Widgets;
 use App\Filament\Resources\AcConditionLogResource\RelationManagers;
@@ -10,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -80,6 +82,11 @@ class AcConditionLogResource extends Resource
             ->defaultSort('logged_at', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(AcConditionLogExporter::class)
+                    ->label('Export Logs'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

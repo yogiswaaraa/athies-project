@@ -43,14 +43,15 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(
                 FilamentFullCalendarPlugin::make()
-                    // ->schedulerLicenseKey('null')
-                    // ->selectable(false)
-                    // ->editable(false)
-                    // ->timezone(config('app.timezone'))
-                    // ->locale(config('app.locale'))
-                    // ->plugins(['dayGrid', 'timeGrid'])
-                    // ->config([])
+                // ->schedulerLicenseKey('null')
+                // ->selectable(false)
+                // ->editable(false)
+                // ->timezone(config('app.timezone'))
+                // ->locale(config('app.locale'))
+                // ->plugins(['dayGrid', 'timeGrid'])
+                // ->config([])
             )
+            ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
