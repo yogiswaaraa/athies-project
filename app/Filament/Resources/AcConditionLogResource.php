@@ -57,7 +57,7 @@ class AcConditionLogResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('acUnit.id')
+                Tables\Columns\TextColumn::make('acUnit.unit_code')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('temperature')
@@ -81,7 +81,7 @@ class AcConditionLogResource extends Resource
             ])
             ->defaultSort('logged_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->headerActions([
                 ExportAction::make()
@@ -89,9 +89,9 @@ class AcConditionLogResource extends Resource
                     ->label('Export Logs'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
