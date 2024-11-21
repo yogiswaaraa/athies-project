@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\AcUnitExporter;
 use App\Filament\Resources\AcUnitResource\Pages;
 use App\Filament\Resources\AcUnitResource\RelationManagers;
 use App\Models\AcUnit;
@@ -9,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -92,10 +94,18 @@ class AcUnitResource extends Resource
                 SelectFilter::make('building_id')
                     ->relationship('building', 'name')
                     ->searchable()
-                    ->preload()
+                    ->preload(),
+                SelectFilter::make('model')
+                    ->options(AcUnit::$ac_models)
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(AcUnitExporter::class)
+                    ->label('Export Unit'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

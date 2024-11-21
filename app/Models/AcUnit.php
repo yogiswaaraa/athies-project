@@ -27,7 +27,14 @@ class AcUnit extends Model
         'efficiency_rating' => 'float'
     ];
 
-    public static $ac_models = ['ducting', 'split', 'window', 'standing', 'portable', 'smart'];
+    public static $ac_models = [
+        'ducting' => 'Ducting',
+        'split' => 'Split',
+        'window' => 'Window',
+        'standing' => 'Standing',
+        'portable' => 'Portable',
+        'smart' => 'Smart'
+    ];
     public static $ac_statuses = ['active', 'maintenance', 'inactive'];
 
     public function building(): BelongsTo
