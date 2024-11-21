@@ -26,17 +26,38 @@ class MaintenanceScheduleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('ac_unit_id')
-                    ->relationship('acUnit', 'id')
-                    ->required(),
+                    ->relationship('acUnit', 'unit_code')
+                    ->required()
+                    ->label('AC Unit')
+                    ->native(false)
+                    ->searchable()
+                    ->preload(),
                 Forms\Components\DatePicker::make('scheduled_date')
-                    ->required(),
-                Forms\Components\TextInput::make('type')
-                    ->required(),
+                    ->required()
+                    ->label('Tanggal Terjadwal')
+                    ->native(false),
+                Forms\Components\Select::make('type')
+                    ->options([
+                        'routine' => 'Routine',
+                        'repair' => 'Repair',
+                        'inspection' => 'Inspection',
+                    ])
+                    ->required()
+                    ->label('Tipe'),
                 Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\DatePicker::make('completed_date'),
+                    ->label('Deskripsi'),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->default('pending')
+                    ->required()
+                    ->label('Status'),
+                Forms\Components\DatePicker::make('completed_date')
+                    ->label('Tanggal Selesai')
+                    ->native(false),
             ]);
     }
 
@@ -44,30 +65,37 @@ class MaintenanceScheduleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('acUnit.id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('acUnit.unit_code')
+                    ->label('AC Unit')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('scheduled_date')
+                    ->label('Tanggal Terjadwal')
                     ->date()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('type')
+                    ->label('Tipe')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->sortable(),
+                    ->label('Status')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('completed_date')
+                    ->label('Tanggal Selesai')
                     ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                ->options([
+                    'pending' => 'Pending',
+                    'completed' => 'Completed',
+                    'cancelled' => 'Cancelled',
+                ])
+                ->label('Status')
+                ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
