@@ -76,6 +76,7 @@ class AcConditionLogResource extends Resource
             ->filters([
                 //
             ])
+            ->defaultSort('logged_at', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
