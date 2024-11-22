@@ -10,7 +10,7 @@ use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CustomerOverview;
 class ListMaintenanceSchedules extends ListRecords
 {
     protected static string $resource = MaintenanceScheduleResource::class;
-
+    protected ?string $heading = 'Jadwal Pemeliharaan';
     protected function getHeaderActions(): array
     {
         return [

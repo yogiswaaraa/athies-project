@@ -26,6 +26,11 @@ class AcUnitResource extends Resource
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Unit';
 
+    public static function getWidgets(): array
+    {
+        return [];
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -46,8 +51,14 @@ class AcUnitResource extends Resource
                 Forms\Components\Select::make('status')
                     ->options([
                         'active' => 'active',
-                        'maintenance' => 'maintenance',
                         'inactive' => 'inactive',
+                    ])
+                    ->native(false)
+                    ->required(),
+                Forms\Components\Select::make('current_condition')
+                    ->options([
+                        'normal' => 'normal',
+                        'broken' => 'broken',
                     ])
                     ->native(false)
                     ->required(),
@@ -71,6 +82,8 @@ class AcUnitResource extends Resource
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('current_condition')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('current_temperature.temperature')
                     ->numeric()
@@ -127,6 +140,7 @@ class AcUnitResource extends Resource
             'index' => Pages\ListAcUnits::route('/'),
             'create' => Pages\CreateAcUnit::route('/create'),
             'edit' => Pages\EditAcUnit::route('/{record}/edit'),
+            'test' => Pages\Testing::route('/test'),
         ];
     }
 }
