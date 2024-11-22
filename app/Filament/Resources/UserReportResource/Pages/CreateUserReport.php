@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateUserReport extends CreateRecord
 {
     protected static string $resource = UserReportResource::class;
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Berhasil Melaporkan';
+    }
+    
 }
