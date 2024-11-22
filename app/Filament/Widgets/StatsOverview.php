@@ -11,6 +11,7 @@ use App\Models\AcUnit;
 
 FilamentColor::register([
     'purple' => Color::hex('#5f1796'),
+    'dark-yellow' => Color::hex('#967f17')
 ]);
 
 class StatsOverview extends BaseWidget
@@ -34,7 +35,8 @@ class StatsOverview extends BaseWidget
             ->description('Shows Total AC')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->chart([10,10,10,10])
-            ->color('gray'), 
+            ->color('gray'),
+            #->columnSpan(1), 
 
             Stat::make('On', $activeCount)
             ->description('Shows Total AC in On Condition')
@@ -72,6 +74,11 @@ class StatsOverview extends BaseWidget
             ->chart([11,11,11,11])
             ->color('purple'),
             
+            Stat::make('Cost', value: '1,000K')
+            ->description('Total Maintenance Cost In November')
+            ->descriptionIcon('heroicon-m-currency-dollar')
+            ->chart([1,2,4,10,20,50])
+            ->color('dark-yellow')
         ];
     
     }
