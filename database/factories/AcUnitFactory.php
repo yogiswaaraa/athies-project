@@ -21,7 +21,7 @@ class AcUnitFactory extends Factory
         return [
             'building_id' => Building::factory(),
             'unit_code' => fake()->unique()->lexify('id-????'),
-            'model' => fake()->randomElement(AcUnit::$ac_models),
+            'model' => fake()->randomElement(array_keys(AcUnit::$ac_models)),
             'serial_number' => fake()->unique()->lexify('SN-????'),
             'status' => fake()->randomElement(AcUnit::$ac_statuses),
             'installation_date' => fake()->date(),
