@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class AcUnit extends Model
 {
@@ -17,8 +18,6 @@ class AcUnit extends Model
         'model',
         'serial_number',
         'status',
-        'current_temperature',
-        'efficiency_rating',
         'installation_date'
     ];
 
@@ -28,12 +27,30 @@ class AcUnit extends Model
         'efficiency_rating' => 'float'
     ];
 
-    public static $ac_models = ['ducting', 'split', 'window', 'standing', 'portable', 'smart'];
+    public static $ac_models = [
+        'ducting' => 'Ducting',
+        'split' => 'Split',
+        'window' => 'Window',
+        'standing' => 'Standing',
+        'portable' => 'Portable',
+        'smart' => 'Smart'
+    ];
     public static $ac_statuses = ['active', 'maintenance', 'inactive'];
 
     public function building(): BelongsTo
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public function current_temperature(): HasOne
+    {
+        return $this->hasOne(AcConditionLog::class)->latest('logged_at');
+    }
+
+    public function efficiency_rating(): HasOne
+    {
+        return $this->hasOne(AcConditionLog::class)
+            ->latest('logged_at');
     }
 
     public function maintenanceSchedules(): HasMany

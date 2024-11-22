@@ -24,8 +24,6 @@ class AcUnitFactory extends Factory
             'model' => fake()->randomElement(AcUnit::$ac_models),
             'serial_number' => fake()->unique()->lexify('SN-????'),
             'status' => fake()->randomElement(AcUnit::$ac_statuses),
-            'current_temperature' => fake()->optional()->randomFloat(2, 16, 30),
-            'efficiency_rating' => fake()->optional()->randomFloat(2, 1, 5),
             'installation_date' => fake()->date(),
         ];
     }
