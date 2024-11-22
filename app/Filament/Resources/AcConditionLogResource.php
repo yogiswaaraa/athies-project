@@ -2,13 +2,16 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\AcConditionLogExporter;
 use App\Filament\Resources\AcConditionLogResource\Pages;
+use App\Filament\Resources\AcConditionLogResource\Widgets;
 use App\Filament\Resources\AcConditionLogResource\RelationManagers;
 use App\Models\AcConditionLog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -54,7 +57,7 @@ class AcConditionLogResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('acUnit.id')
+                Tables\Columns\TextColumn::make('acUnit.unit_code')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('temperature')
@@ -76,14 +79,28 @@ class AcConditionLogResource extends Resource
             ->filters([
                 //
             ])
+            ->defaultSort('logged_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(AcConditionLogExporter::class)
+                    ->label('Export Logs'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
+    }
+
+
+    public static function getWidgets(): array
+    {
+        return [
+            Widgets\PowerTempratureEviciencyChart::class
+        ];
     }
 
     public static function getRelations(): array
