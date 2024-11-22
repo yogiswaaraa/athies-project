@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('humidity')->nullable();
             $table->float('power_consumption')->nullable();
             $table->float('efficiency_rating')->nullable();
-            $table->timestamp('logged_at')->useCurrent();
+            $table->timestamp('logged_at')->default(now());
         });
     }
 
