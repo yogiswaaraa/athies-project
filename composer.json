@@ -9,6 +9,7 @@
         "filament/filament": "^3.2",
         "filament/notifications": "^3.2",
         "flowframe/laravel-trend": "^0.3.0",
+        "filament/forms": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "mallardduck/blade-lucide-icons": "^1.23",
