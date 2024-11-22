@@ -5,6 +5,7 @@ namespace App\Filament\Resources\MaintenanceScheduleResource\Pages;
 use App\Filament\Resources\MaintenanceScheduleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CustomerOverview;
 
 class ListMaintenanceSchedules extends ListRecords
 {
@@ -14,6 +15,12 @@ class ListMaintenanceSchedules extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CustomerOverview::class,
         ];
     }
 }
