@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('building_id')->constrained()->onDelete('cascade');
             $table->string('unit_code')->unique();
-            $table->string('model');
+            $table->enum('model', ['ducting', 'split', 'window', 'standing', 'portable', 'smart']);
             $table->string('serial_number');
             $table->enum('status', ['active', 'inactive']);
             $table->enum('current_condition', ['normal', 'broken']);

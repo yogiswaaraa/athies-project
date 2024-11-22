@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\AcUnitExporter;
 use App\Filament\Resources\AcUnitResource\Pages;
 use App\Filament\Resources\AcUnitResource\RelationManagers;
 use App\Models\AcUnit;
@@ -9,6 +10,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -24,10 +27,9 @@ class AcUnitResource extends Resource
     protected static ?string $navigationLabel = 'Unit';
 
     public static function getWidgets(): array
-{
-    return [
-    ];
-}
+    {
+        return [];
+    }
 
     public static function form(Form $form): Form
     {
@@ -41,7 +43,8 @@ class AcUnitResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('unit_code')
                     ->required(),
-                Forms\Components\TextInput::make('model')
+                Forms\Components\Select::make('model')
+                    ->options(AcUnit::$ac_models)
                     ->required(),
                 Forms\Components\TextInput::make('serial_number')
                     ->required(),
@@ -59,11 +62,8 @@ class AcUnitResource extends Resource
                     ])
                     ->native(false)
                     ->required(),
-                Forms\Components\TextInput::make('current_temperature')
-                    ->numeric(),
-                Forms\Components\TextInput::make('efficiency_rating')
-                    ->numeric(),
                 Forms\Components\DatePicker::make('installation_date')
+                    ->native(false)
                     ->required(),
             ]);
     }
@@ -85,10 +85,10 @@ class AcUnitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('current_condition')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('current_temperature')
+                Tables\Columns\TextColumn::make('current_temperature.temperature')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('efficiency_rating')
+                Tables\Columns\TextColumn::make('efficiency_rating.efficiency_rating')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('installation_date')
@@ -104,10 +104,21 @@ class AcUnitResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('building_id')
+                    ->relationship('building', 'name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('model')
+                    ->options(AcUnit::$ac_models)
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(AcUnitExporter::class)
+                    ->label('Export Unit'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
