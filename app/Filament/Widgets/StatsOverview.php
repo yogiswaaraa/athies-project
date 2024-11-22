@@ -30,7 +30,7 @@ class StatsOverview extends BaseWidget
             Stat::make('Total AC', $acUnitCount)
             ->description('Shows Total AC')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
-            ->chart([1,2,5,10,20,40])
+            ->chart([10,10,10,10])
             ->color('gray'), 
 
             Stat::make('AC is On', $activeCount)
