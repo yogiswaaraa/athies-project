@@ -25,7 +25,7 @@ use App\Filament\Pages\Components\NotificationBell;
 class AdminPanelProvider extends PanelProvider
 {
 
-    
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -48,13 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(
                 FilamentFullCalendarPlugin::make()
-                 ->schedulerLicenseKey('')
-                 ->selectable(true)
-                 ->editable(true)
-                 ->timezone(config('app.timezone'))
-                 ->locale(config('app.locale'))
-                 ->plugins(['dayGrid', 'timeGrid'])
-                 ->config([])
+                    ->selectable(true)
+                    ->editable(true)
+                    ->timezone(config('app.timezone'))
+                    ->locale(config('app.locale'))
+                    // ->plugins(['dayGrid', 'timeGrid'])
+                    ->config([])
             )
             ->databaseNotifications()
             ->middleware([
@@ -71,14 +70,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-
-            
-
             ->databaseNotifications()
-            ->databaseNotificationsPolling(interval:'2s')
-            ;
-
-            
+            ->databaseNotificationsPolling(interval: '2s')
+        ;
     }
-    
 }
