@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
+use App\Filament\Pages\Components\NotificationBell;
 
 
 
@@ -70,9 +71,13 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
 
+            
+
             ->databaseNotifications()
             ->databaseNotificationsPolling(interval:'2s')
             ;
+
+            
     }
     
 }
