@@ -17,7 +17,7 @@ class ACStatusChart extends ChartWidget
         //$maintenanceCount = AcUnit::where('status', 'maintenance')->count();
 
         return [
-            'labels' => ['On', 'Off', 'Maintenance'],  // Labels for the X-axis
+            'labels' => ['On', 'Off'],  // Labels for the X-axis
             'datasets' => [
                 [
                     'label' => 'Count',
