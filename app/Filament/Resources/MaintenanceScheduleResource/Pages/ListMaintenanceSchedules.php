@@ -6,6 +6,7 @@ use App\Filament\Resources\MaintenanceScheduleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CustomerOverview;
+use App\Filament\Resources\MaintenanceScheduleResource\Widgets\Calendarwidget;
 
 class ListMaintenanceSchedules extends ListRecords
 {
@@ -21,6 +22,7 @@ class ListMaintenanceSchedules extends ListRecords
     {
         return [
             CustomerOverview::class,
+            CalendarWidget::class,
         ];
     }
 }

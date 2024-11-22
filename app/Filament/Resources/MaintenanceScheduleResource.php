@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\MaintenanceScheduleResource\Widgets;
+
 
 class MaintenanceScheduleResource extends Resource
 {
@@ -113,6 +115,13 @@ class MaintenanceScheduleResource extends Resource
             //
         ];
     }
+
+    public static function getWidgets(): array
+{
+    return [
+        Widgets\CalendarWidget::class,
+    ];
+}
 
     public static function getPages(): array
     {
