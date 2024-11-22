@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -11,6 +12,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Filament\Notifications\Notification;
 
 class CreateUserReport extends Component implements HasForms
 {
@@ -38,8 +40,8 @@ class CreateUserReport extends Component implements HasForms
                         Select::make('damage_type')
                             ->label('Tipe Kerusakan')
                             ->options([
-                                'not_turning_on' => 'Tidak nyala',
-                                'not_cooling' => 'Tidak dingin',
+                                'not turning on' => 'Tidak nyala',
+                                'not cooling' => 'Tidak dingin',
                                 'noisy' => 'Berisik',
                             ])
                             ->required()
@@ -48,15 +50,6 @@ class CreateUserReport extends Component implements HasForms
                             ->label('Deskripsi')
                             ->required()
                             ->placeholder('Berikan deskripsi singkat masalah...'),
-                    ])
-                    ->footerActions([
-                        Action::make('Submit')
-                            ->label('Kirim')
-                            ->action(function () {
-                                $this->create();
-                            })
-                            ->button()
-                            ->color('primary'),
                     ])
                     ->extraAttributes([
                         'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md',
@@ -83,12 +76,10 @@ class CreateUserReport extends Component implements HasForms
 
         // Reset form dan tampilkan pesan sukses
         $this->form->fill([]);
-        session()->flash('success', 'Laporan berhasil dikirim.');
 
-        // Debug data hasil validasi
-        dd($validatedData);
-
-        // Simpan logika tambahan di sini jika diperlukan, misalnya menyimpan ke database.
+        Notification::make()
+            ->title('Laporan Baru diterima')
+            ->sendToDatabase(User::where('id', '=', '1')->get());
     }
 
     public function render(): View
