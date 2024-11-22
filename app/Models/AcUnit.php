@@ -17,6 +17,7 @@ class AcUnit extends Model
         'unit_code',
         'model',
         'serial_number',
+        'current_condition',
         'status',
         'installation_date'
     ];
