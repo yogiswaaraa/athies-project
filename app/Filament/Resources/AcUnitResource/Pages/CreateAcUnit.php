@@ -17,11 +17,16 @@ class CreateAcUnit extends CreateRecord
         return 'Ac Ditambahkan' ;
     }
 
-    protected function getCreatenotification() : ?Notification
-    {
-        return Notification::make()
-        ->succes()
-        ->tittle('Ac Ditambahkan')
-        ->body('Ac Berhasil Ditambahkan.') ;
-    }
+    protected function getCreatedNotificationTitle(): ?string
+{
+    return 'Ac Ditambahkan';
+}
+
+    // protected function getCreatenotification() : ?Notification
+    // {
+    //     return Notification::make()
+    //     ->succes()
+    //     ->tittle('Ac Ditambahkan')
+    //     ->body('Ac Berhasil Ditambahkan.') ;
+    // }
 }
