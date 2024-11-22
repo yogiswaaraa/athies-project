@@ -10,7 +10,7 @@ use Filament\Support\Facades\FilamentColor;
 use App\Models\AcUnit;
 
 FilamentColor::register([
-    'yellow' => Color::hex('#FFC300'),
+    'purple' => Color::hex('#5f1796'),
 ]);
 
 class StatsOverview extends BaseWidget
@@ -20,7 +20,10 @@ class StatsOverview extends BaseWidget
         $acUnitCount = AcUnit::count();
         $activeCount = AcUnit::where('status', 'active')->count();
         $inactiveCount = AcUnit::where('status', 'inactive')->count();
+        $workingwellCount = AcUnit::where('current_condition', 'normal')->count();
+        $malfunctioningCount = AcUnit::where('current_condition', 'broken')->count();
         $maintenanceCount = AcUnit::where('status', 'maintenance')->count();
+        $averageERR = AcUnit::where('status', 'active')->avg('efficiency_rating');
 
         // Menghitung rata-rata efisiensi untuk AC yang aktif
         $averageEfficiency = AcUnit::where('status', 'active')->avg('efficiency');
@@ -33,29 +36,41 @@ class StatsOverview extends BaseWidget
             ->chart([10,10,10,10])
             ->color('gray'), 
 
-            Stat::make('AC is On', $activeCount)
+            Stat::make('On', $activeCount)
             ->description('Shows Total AC in On Condition')
             ->descriptionIcon('heroicon-m-bolt')
             ->chart([3,3,3,3,3,3])
             ->color('info'),           
             
-            Stat::make('AC is Off', $inactiveCount)
+            Stat::make('Off', $inactiveCount)
             ->description('Shows Total AC in Off Condition')
             ->descriptionIcon('heroicon-m-bolt-slash')
             ->chart([1,1,1,1,1])
             ->color('danger'),
-            
-            Stat::make('AC Maintenance', $maintenanceCount)
-            ->description('Shows Total AC who Needs a Maintenance')
-            ->descriptionIcon('heroicon-m-wrench-screwdriver')
-            ->chart([2,2,2,2,2,2,2])
-            ->color('yellow'),
 
-            Stat::make('Average ERR', number_format($averageEfficiency, 2))
+            Stat::make('Working Well AC', $workingwellCount)
+            ->description('Shows Total AC in Working Well Condition')
+            ->descriptionIcon('heroicon-m-check')
+            ->chart([3,3,3,3,3,3])
+            ->color('success'),           
+            
+            Stat::make('Malfunctioning', $malfunctioningCount)
+            ->description('Shows Total AC in Malfunction Condition')
+            ->descriptionIcon('heroicon-m-bug-ant')
+            ->chart([1,1,1,1,1])
+            ->color('warning'),
+            
+            // Stat::make('AC Maintenance', $maintenanceCount)
+            // ->description('Shows Total AC who Needs a Maintenance')
+            // ->descriptionIcon('heroicon-m-wrench-screwdriver')
+            // ->chart([2,2,2,2,2,2,2])
+            // ->color('yellow'),
+
+            Stat::make('Average ERR', $averageERR)
             ->description('Shows Avg of ERR AC')
             ->descriptionIcon('heroicon-m-sparkles')
             ->chart([11,11,11,11])
-            ->color('success'),
+            ->color('purple'),
             
         ];
     

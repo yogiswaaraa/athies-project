@@ -15,7 +15,7 @@ class ListAcUnits extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            AcUnitResource\Widgets\ACChart::class,
+           
         ];
     }
 

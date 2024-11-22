@@ -5,7 +5,7 @@ namespace App\Filament\Widgets;
 use Filament\Widgets\ChartWidget;
 use App\Models\AcUnit;
 
-class KetepatanServisAC extends ChartWidget
+class ACStatusChart extends ChartWidget
 {
     protected static ?string $heading = 'AC Status';
 
@@ -14,15 +14,15 @@ class KetepatanServisAC extends ChartWidget
         // Dynamically count the AC units based on their status
         $activeCount = AcUnit::where('status', 'active')->count();
         $inactiveCount = AcUnit::where('status', 'inactive')->count();
-        $maintenanceCount = AcUnit::where('status', 'maintenance')->count();
+        //$maintenanceCount = AcUnit::where('status', 'maintenance')->count();
 
         return [
             'labels' => ['On', 'Off', 'Maintenance'],  // Labels for the X-axis
             'datasets' => [
                 [
                     'label' => 'Count',
-                    'data' => [$activeCount, $inactiveCount, $maintenanceCount],  // Use dynamic counts here
-                    'backgroundColor' => ['#5463FF', '#FF1818', '#FFC300'],  // Color for each bar
+                    'data' => [$activeCount, $inactiveCount], //$maintenanceCount],  // Use dynamic counts here
+                    'backgroundColor' => ['#5463FF', '#FF1818'],  // Color for each bar
                     'borderColor' => ['#ECECEC'],  // Border color for bars
                     'borderWidth' => 2,  // Set border width if needed
                 ],

@@ -14,7 +14,6 @@ class ListMaintenanceSchedules extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            MaintenanceScheduleResource\Widgets\KetepatanPerawatan::class,
         ];
     }
 

@@ -68,7 +68,6 @@ class MaintenanceScheduleResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\MaintenanceScheduleResource\Widgets\KetepatanPerawatan::class,
-        ];
+           ];
     }
 }

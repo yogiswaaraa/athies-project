@@ -26,7 +26,6 @@ class AcUnitResource extends Resource
     public static function getWidgets(): array
 {
     return [
-        AcUnitResource\Widgets\ACChart::class,
     ];
 }
 
@@ -49,8 +48,14 @@ class AcUnitResource extends Resource
                 Forms\Components\Select::make('status')
                     ->options([
                         'active' => 'active',
-                        'maintenance' => 'maintenance',
                         'inactive' => 'inactive',
+                    ])
+                    ->native(false)
+                    ->required(),
+                Forms\Components\Select::make('current_condition')
+                    ->options([
+                        'normal' => 'normal',
+                        'broken' => 'broken',
                     ])
                     ->native(false)
                     ->required(),
@@ -77,6 +82,8 @@ class AcUnitResource extends Resource
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('current_condition')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('current_temperature')
                     ->numeric()

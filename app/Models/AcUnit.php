@@ -15,6 +15,7 @@ class AcUnit extends Model
         'model',
         'serial_number',
         'status',
+        'current_condition',
         'current_temperature',
         'efficiency_rating',
         'installation_date'
@@ -23,7 +24,7 @@ class AcUnit extends Model
     protected $casts = [
         'installation_date' => 'date',
         'current_temperature' => 'float',
-        'efficiency_rating' => 'float'
+        'efficiency_rating' => 'float' 
     ];
 
     public function building(): BelongsTo
