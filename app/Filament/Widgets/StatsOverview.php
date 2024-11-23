@@ -24,10 +24,11 @@ class StatsOverview extends BaseWidget
         $workingwellCount = AcUnit::where('current_condition', 'normal')->count();
         $malfunctioningCount = AcUnit::where('current_condition', 'broken')->count();
         $maintenanceCount = AcUnit::where('status', 'maintenance')->count();
-        $averageERR = AcUnit::where('status', 'active')->avg('efficiency_rating');
-
-        // Menghitung rata-rata efisiensi untuk AC yang aktif
-        $averageEfficiency = AcUnit::where('status', 'active')->avg('efficiency');
+        
+         // Hitung rata-rata efisiensi hanya untuk AC aktif
+         $averageEfficiencyActive = AcUnit::where('status', 'active')
+         ->join('ac_condition_logs', 'ac_units.id', '=', 'ac_condition_logs.ac_unit_id')
+         ->avg('ac_condition_logs.efficiency_rating');
 
         // Mengembalikan statistik dalam bentuk array
         return [
@@ -68,7 +69,7 @@ class StatsOverview extends BaseWidget
             // ->chart([2,2,2,2,2,2,2])
             // ->color('yellow'),
 
-            Stat::make('Average ERR', $averageERR)
+            Stat::make('Average ERR', number_format((float)$averageEfficiencyActive, 1,'.',''))
             ->description('Shows Avg of ERR AC')
             ->descriptionIcon('heroicon-m-sparkles')
             ->chart([11,11,11,11])
