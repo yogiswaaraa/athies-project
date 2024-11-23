@@ -19,8 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 use App\Filament\Pages\Components\NotificationBell;
-
-
+use Illuminate\Support\Facades\URL;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
 
     public function panel(Panel $panel): Panel
     {
+        URL::forceScheme('https');
         return $panel
             ->default()
             ->id('admin')
