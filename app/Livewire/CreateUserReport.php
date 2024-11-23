@@ -51,8 +51,15 @@ class CreateUserReport extends Component implements HasForms
                             ->required()
                             ->placeholder('Berikan deskripsi singkat masalah...'),
                     ])
+                    ->footerActions([
+                        Action::make('submit')
+                            ->label('Submit')
+                            ->action(function () {
+                                $this->create(); // Memanggil fungsi create()
+                            }),
+                    ])
                     ->extraAttributes([
-                        'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md',
+                        'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md text-white font-bold',
                     ]),
             ])
             ->statePath('data');
