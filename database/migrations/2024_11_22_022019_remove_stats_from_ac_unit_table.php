@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ac_units', function (Blueprint $table) {
-            $table->dropColumn('current_temperature');
-            $table->dropColumn('efficiency_rating');
+            $table->removeColumn('current_temperature');
+            $table->removeColumn('efficiency_rating');
         });
     }
 
