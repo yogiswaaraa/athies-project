@@ -27,7 +27,7 @@ class StatsOverview extends BaseWidget
         $averageERR = AcUnit::where('status', 'active')->avg('efficiency_rating');
 
         // Menghitung rata-rata efisiensi untuk AC yang aktif
-        $averageEfficiency = AcUnit::where('status', 'active')->avg('efficiency');
+        $averageEfficiency = AcUnit::where('status', 'active')->join('ac_condition_logs', 'ac_units.id', '=', 'ac_condition_logs.ac_unit_id')->avg('ac_condition_logs.efficiency_rating');
 
         // Mengembalikan statistik dalam bentuk array
         return [
