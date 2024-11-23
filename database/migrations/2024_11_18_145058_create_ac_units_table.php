@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('efficiency_rating')->nullable();
             $table->date('installation_date');
             $table->timestamps();
+            
         });
     }
 
