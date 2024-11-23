@@ -9,5 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateMaintenanceSchedule extends CreateRecord
 {
     protected static string $resource = MaintenanceScheduleResource::class;
-    protected ?string $heading = 'Tambah Jadwal Pemeliharaan';
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Berhasil Menambahkan';
+    }
+    
 }

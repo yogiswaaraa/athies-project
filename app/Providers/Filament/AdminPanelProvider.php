@@ -17,9 +17,15 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
+use App\Filament\Pages\Components\NotificationBell;
+
+
 
 class AdminPanelProvider extends PanelProvider
 {
+
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -40,6 +46,16 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->plugin(
+                FilamentFullCalendarPlugin::make()
+                    ->selectable(true)
+                    ->editable(true)
+                    ->timezone(config('app.timezone'))
+                    ->locale(config('app.locale'))
+                    // ->plugins(['dayGrid', 'timeGrid'])
+                    ->config([])
+            )
+            ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -53,6 +69,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling(interval: '2s')
+        ;
     }
 }

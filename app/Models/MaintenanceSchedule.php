@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MaintenanceSchedule extends Model
 {
+
+    use HasFactory;
+
     protected $fillable = [
         'ac_unit_id',
         'scheduled_date',
@@ -17,9 +21,13 @@ class MaintenanceSchedule extends Model
     ];
 
     protected $casts = [
-        'scheduled_date' => 'date',
+        'scheduled_date' => 'date', 
         'completed_date' => 'date'
     ];
+
+    public static $types = ['routine', 'repair', 'inspection'];
+
+    public static $statuses = ['pending', 'completed', 'cancelled'];
 
     public function acUnit(): BelongsTo
     {

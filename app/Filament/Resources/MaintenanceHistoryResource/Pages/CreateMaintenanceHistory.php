@@ -10,4 +10,9 @@ class CreateMaintenanceHistory extends CreateRecord
 {
     protected ?string $heading = 'Tambah riwayat Jadwal Pemeliharaan';
     protected static string $resource = MaintenanceHistoryResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+{
+    return 'Jadwal Ditambahkan';
+}
 }
