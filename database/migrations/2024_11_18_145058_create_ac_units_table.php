@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('unit_code')->unique();
             $table->enum('model', ['ducting', 'split', 'window', 'standing', 'portable', 'smart']);
             $table->string('serial_number');
-            $table->enum('status', ['active', 'maintenance', 'inactive']);
+            $table->enum('status', ['active', 'inactive']);
+            $table->enum('current_condition', ['normal', 'broken']);
             $table->float('current_temperature')->nullable();
             $table->float('efficiency_rating')->nullable();
             $table->date('installation_date');
             $table->timestamps();
+            
         });
     }
 

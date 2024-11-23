@@ -21,7 +21,7 @@ class MaintenanceSchedule extends Model
     ];
 
     protected $casts = [
-        'scheduled_date' => 'date',
+        'scheduled_date' => 'date', 
         'completed_date' => 'date'
     ];
 

@@ -17,6 +17,7 @@ class AcUnit extends Model
         'unit_code',
         'model',
         'serial_number',
+        'current_condition',
         'status',
         'installation_date'
     ];
@@ -35,7 +36,7 @@ class AcUnit extends Model
         'portable' => 'Portable',
         'smart' => 'Smart'
     ];
-    public static $ac_statuses = ['active', 'maintenance', 'inactive'];
+    public static $ac_statuses = ['active', 'inactive'];
 
     public function building(): BelongsTo
     {

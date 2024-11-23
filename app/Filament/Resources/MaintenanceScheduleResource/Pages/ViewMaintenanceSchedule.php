@@ -4,14 +4,9 @@ namespace App\Filament\Resources\MaintenanceScheduleResource\Pages;
 
 use App\Filament\Resources\MaintenanceScheduleResource;
 use Filament\Actions;
-use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class CreateMaintenanceSchedule extends CreateRecord
+class ViewMaintenanceSchedule extends ViewRecord
 {
     protected static string $resource = MaintenanceScheduleResource::class;
-    protected function getCreatedNotificationTitle(): ?string
-    {
-        return 'Berhasil Menambahkan';
-    }
-    
 }

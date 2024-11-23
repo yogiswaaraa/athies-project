@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('ac_unit_id')->constrained()->onDelete('cascade');
             $table->date('maintenance_date');
             $table->string('technician_name');
-            $table->text('actions_taken'); // todo: create enum or table for this
+            $table->text('actions_taken');
             $table->text('notes')->nullable();
             $table->enum('result', ['success', 'partial', 'failed']);
             $table->timestamps();

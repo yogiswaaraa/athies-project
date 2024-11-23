@@ -17,9 +17,9 @@ class MaintenanceHistory extends Model
     ];
 
     public static $result_enum_array = [
-        'success',
-        'partial',
-        'failed'
+        'success' => "Sukses",
+        'partial' => "Pending",
+        'failed' => "Gagal"
     ];
     protected $casts = [
         'maintenance_date' => 'date'

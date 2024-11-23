@@ -10,4 +10,13 @@ class CreateBuilding extends CreateRecord
 {
     protected ?string $heading = 'Tambah Gedung';
     protected static string $resource = BuildingResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Gedung Ditambahkan';
+    }
+
+
 }
+
+
