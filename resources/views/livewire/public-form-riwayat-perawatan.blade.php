@@ -10,7 +10,7 @@
             <label for="ac_unit_id">AC Unit:</label>
             <select id="ac_unit_id" wire:model="ac_unit_id">
                 <option value="">Pilih AC Unit</option>
-                @foreach (\App\Models\ACUnit::all() as $unit)
+                @foreach ($all_ac as $unit)
                     <option value="{{ $unit->id }}">{{ $unit->id }}</option>
                 @endforeach
             </select>
