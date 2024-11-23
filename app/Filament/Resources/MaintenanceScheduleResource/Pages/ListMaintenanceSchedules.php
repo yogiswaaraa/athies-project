@@ -3,15 +3,15 @@
 namespace App\Filament\Resources\MaintenanceScheduleResource\Pages;
 
 use App\Filament\Resources\MaintenanceScheduleResource;
+use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CalendarWidget;
+use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CustomerOverview;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\MaintenanceScheduleResource\Widgets\CustomerOverview;
-use App\Filament\Resources\MaintenanceScheduleResource\Widgets\Calendarwidget;
 
 class ListMaintenanceSchedules extends ListRecords
 {
     protected static string $resource = MaintenanceScheduleResource::class;
-
+    protected ?string $heading = 'Jadwal Pemeliharaan';
     protected function getHeaderActions(): array
     {
         return [

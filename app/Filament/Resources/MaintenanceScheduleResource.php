@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\MaintenanceScheduleResource\Widgets;
 
-
 class MaintenanceScheduleResource extends Resource
 {
     protected static ?string $model = MaintenanceSchedule::class;
@@ -73,6 +72,7 @@ class MaintenanceScheduleResource extends Resource
                 Tables\Columns\TextColumn::make('scheduled_date')
                     ->label('Tanggal Terjadwal')
                     ->date()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Tipe')
@@ -91,13 +91,13 @@ class MaintenanceScheduleResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                ->options([
-                    'pending' => 'Pending',
-                    'completed' => 'Completed',
-                    'cancelled' => 'Cancelled',
-                ])
-                ->label('Status')
-                ->searchable(),
+                    ->options([
+                        'pending' => 'Pending',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->label('Status')
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -117,11 +117,11 @@ class MaintenanceScheduleResource extends Resource
     }
 
     public static function getWidgets(): array
-{
-    return [
-        Widgets\CalendarWidget::class,
-    ];
-}
+    {
+        return [
+            Widgets\CalendarWidget::class,
+        ];
+    }
 
     public static function getPages(): array
     {
@@ -129,6 +129,7 @@ class MaintenanceScheduleResource extends Resource
             'index' => Pages\ListMaintenanceSchedules::route('/'),
             'create' => Pages\CreateMaintenanceSchedule::route('/create'),
             'edit' => Pages\EditMaintenanceSchedule::route('/{record}/edit'),
+            'view' => Pages\ViewMaintenanceSchedule::route('/{record}'),
         ];
     }
 }
