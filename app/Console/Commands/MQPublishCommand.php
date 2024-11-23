@@ -33,8 +33,8 @@ class MQPublishCommand extends Command
             $dummy = [
                 'temperature' => fake()->randomFloat(2, 20, 30),
                 'ac_unit_id' => fake()->randomNumber(1, 10),
-                'humidity' => fake()->randomFloat(2, 40, 60),
-                'power_consumption' => fake()->randomNumber(1, 10),
+                'humidity' => fake()->randomFloat(2, 40, 60), // %
+                'power_consumption' => fake()->randomNumber(1, 10), // 50 volt
                 'logged_at' => fake()->dateTimeBetween('-1 week', 'now')->format('Y-m-d\TH:i:s.u\Z'),
             ];
 
