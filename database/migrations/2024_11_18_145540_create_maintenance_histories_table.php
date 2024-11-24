@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('actions_taken');
             $table->text('notes')->nullable();
             $table->enum('result', ['success', 'partial', 'failed']);
+            $table->integer('cost')->default(0);
             $table->timestamps();
         });
     }

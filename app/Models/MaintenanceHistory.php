@@ -13,7 +13,8 @@ class MaintenanceHistory extends Model
         'technician_name',
         'actions_taken',
         'notes',
-        'result'
+        'result',
+        'cost'
     ];
 
     public static $result_enum_array = [
