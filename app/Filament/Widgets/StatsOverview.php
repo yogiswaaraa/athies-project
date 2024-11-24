@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\IconPosition;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use App\Models\AcUnit;
+use App\Models\MaintenanceHistory;
 
 FilamentColor::register([
     'purple' => Color::hex('#5f1796'),
@@ -17,17 +18,27 @@ FilamentColor::register([
 class StatsOverview extends BaseWidget
 {
     protected function getStats(): array
-    {
+    {   function formatToK($number) {
+        if ($number >= 1000) {
+            return round($number / 1000, 1) . 'K'; // Divide by 1000 and append 'K'
+        }
+        return $number; // If less than 1000, return the number as is
+    }
         $acUnitCount = AcUnit::count();
         $activeCount = AcUnit::where('status', 'active')->count();
         $inactiveCount = AcUnit::where('status', 'inactive')->count();
         $workingwellCount = AcUnit::where('current_condition', 'normal')->count();
         $malfunctioningCount = AcUnit::where('current_condition', 'broken')->count();
         $maintenanceCount = AcUnit::where('status', 'maintenance')->count();
+        $totalMaintenanceCost = MaintenanceHistory::get()->sum('cost');
+         // Hitung rata-rata efisiensi hanya untuk AC aktif
+         $averageEfficiencyActive = AcUnit::where('status', 'active')
+         ->join('ac_condition_logs', 'ac_units.id', '=', 'ac_condition_logs.ac_unit_id')
+         ->avg('ac_condition_logs.efficiency_rating');
         $averageERR = AcUnit::where('status', 'active')->avg('efficiency_rating');
-
         // Menghitung rata-rata efisiensi untuk AC yang aktif
         $averageEfficiency = AcUnit::where('status', 'active')->join('ac_condition_logs', 'ac_units.id', '=', 'ac_condition_logs.ac_unit_id')->avg('ac_condition_logs.efficiency_rating');
+
 
         // Mengembalikan statistik dalam bentuk array
         return [
@@ -68,13 +79,13 @@ class StatsOverview extends BaseWidget
             // ->chart([2,2,2,2,2,2,2])
             // ->color('yellow'),
 
-            Stat::make('Average ERR', $averageERR)
+            Stat::make('Average ERR', number_format((float)$averageEfficiencyActive, 1,'.',''))
             ->description('Shows Avg of ERR AC')
             ->descriptionIcon('heroicon-m-sparkles')
             ->chart([11,11,11,11])
             ->color('purple'),
             
-            Stat::make('Cost', value: '1,000K')
+            Stat::make('Cost', formatToK($totalMaintenanceCost))
             ->description('Total Maintenance Cost In November')
             ->descriptionIcon('heroicon-m-currency-dollar')
             ->chart([1,2,4,10,20,50])
