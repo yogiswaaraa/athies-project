@@ -2,7 +2,8 @@
 
 namespace App\Livewire;
 
-// use App\Models\User;
+use App\Models\AcUnit;
+use App\Models\User;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -19,7 +20,7 @@ class CreateUserReport extends Component implements HasForms
     use InteractsWithForms;
 
     public ?array $data = []; // State untuk data form
-
+    public string $title = 'User Report';
     public function mount(): void
     {
         $this->form->fill($this->data ?? []);
@@ -29,7 +30,7 @@ class CreateUserReport extends Component implements HasForms
     {
         return $form
             ->schema([
-                Section::make('Laporan Permasalahan')
+                Section::make('')
                     ->compact()
                     ->id('main-section')
                     ->schema([
@@ -46,17 +47,13 @@ class CreateUserReport extends Component implements HasForms
                             ])
                             ->required()
                             ->placeholder('Pilih tipe kerusakan...'),
-                        TextInput::make('description')
+                        Select::make('ac_unit_id')
+                            ->options(AcUnit::pluck('unit_code', 'id')->toArray())
+                            ->required(),
+                        Textarea::make('description')
                             ->label('Deskripsi')
                             ->required()
                             ->placeholder('Berikan deskripsi singkat masalah...'),
-                    ])
-                    ->footerActions([
-                        Action::make('submit')
-                            ->label('Submit')
-                            ->action(function () {
-                                $this->create(); // Memanggil fungsi create()
-                            }),
                     ])
                     ->extraAttributes([
                         'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md text-white font-bold',
@@ -65,20 +62,15 @@ class CreateUserReport extends Component implements HasForms
             ->statePath('data');
     }
 
-    public function create(): void
-    {
-        // Validasi data
-        $validatedData = $this->validate([
-            'data.name_user' => 'required|string|max:255',
-            'data.damage_type' => 'required|string',
-            'data.description' => 'required|string|max:500',
-        ]);
+    public function create(): void {
+    
 
         // Simpan ke database
         \App\Models\UserReport::create([
-            'name_user' => $validatedData['data']['name_user'],
-            'damage_type' => $validatedData['data']['damage_type'],
-            'description' => $validatedData['data']['description'],
+            'name_user' => $this->data['name_user'],
+            'damage_type' => $this->data['damage_type'],
+            'ac_unit_id' => $this->data['ac_unit_id'],
+            'description' => $this->data['description'],
         ]);
 
         // Reset form dan tampilkan pesan sukses
@@ -87,6 +79,9 @@ class CreateUserReport extends Component implements HasForms
         Notification::make()
             ->title('Laporan Baru diterima')
             ->sendToDatabase(User::where('id', '=', '1')->get());
+
+    // Set session flash message
+    session()->flash('success', 'Data berhasil disimpan!');
     }
 
     public function render(): View
