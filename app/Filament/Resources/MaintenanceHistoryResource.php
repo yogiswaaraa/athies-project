@@ -51,9 +51,6 @@ class MaintenanceHistoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maintenanceSchedule.id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('maintenanceSchedule.scheduled_date')
                     ->date()
                     ->sortable(),
@@ -97,7 +94,7 @@ class MaintenanceHistoryResource extends Resource
         return [
             'index' => Pages\ListMaintenanceHistories::route('/'),
             'create' => Pages\CreateMaintenanceHistory::route('/create'),
-            'edit' => Pages\EditMaintenanceHistory::route('/{record}/edit'),
+            // 'edit' => Pages\EditMaintenanceHistory::route('/{record}/edit'),
         ];
     }
 }

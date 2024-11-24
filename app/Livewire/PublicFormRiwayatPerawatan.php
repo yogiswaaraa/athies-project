@@ -9,8 +9,7 @@ use Livewire\Component;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -33,7 +32,7 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
         $this->form->fill($this->data ?? []);
     }
 
-    public function form(Form $form):form
+    public function form(Form $form): form
     {
         return $form
             ->schema([
@@ -46,13 +45,13 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
                             ->required(),
                         TextInput::make('technician_name')
                             ->required(),
-                        Textarea::make('actions_taken')
+                        TextArea::make('actions_taken')
                             ->required(),
-                        Textarea::make('notes')
+                        TextArea::make('notes')
                             ->columnSpanFull(),
-                        Select::make('result')
-                            ->options(MaintenanceHistory::$result_enum_array)
-                            ->required(),
+                        // Select::make('result')
+                        //     ->options(MaintenanceHistory::$result_enum_array)
+                        //     ->required(),
                     ])
                     // ->footerActions([
                     //     Action::make('submit')
@@ -71,42 +70,41 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
     public function create(): void
     {
         try {
-        // Simpan ke database menggunakan data yang sudah ada
-        MaintenanceHistory::create([
-        'maintenance_schedule_id' => $this->data['maintenance_schedule_id'],
-        'technician_name' => $this->data['technician_name'],
-        'actions_taken' => $this->data['actions_taken'],
-        'notes' => $this->data['notes'],
-        'result' => $this->data['result'],
-        'maintenance_date' => now(), // tambahkan tanggal maintenance jika diperlukan
-        ]);
+            // Simpan ke database menggunakan data yang sudah ada
+            MaintenanceHistory::create([
+                'maintenance_schedule_id' => $this->data['maintenance_schedule_id'],
+                'technician_name' => $this->data['technician_name'],
+                'actions_taken' => $this->data['actions_taken'],
+                'notes' => $this->data['notes'],
+                'result' => 'partial',
+                'maintenance_date' => now(), // tambahkan tanggal maintenance jika diperlukan
+            ]);
 
-        // Reset form
-        $this->form->fill();
+            // Reset form
+            $this->form->fill();
 
-        // Tampilkan notifikasi sukses
-        Notification::make()
-        ->title('Data berhasil disimpan!')
-        ->success()
-        ->send();
+            // Tampilkan notifikasi sukses
+            Notification::make()
+                ->title('Data berhasil disimpan!')
+                ->success()
+                ->send();
 
+            session()->flash('success', 'Data berhasil disimpan!');
         } catch (\Exception $e) {
-        // Log error
-        logger('Error saving maintenance history: ' . $e->getMessage());
+            // Log error
+            logger('Error saving maintenance history: ' . $e->getMessage());
 
-        // Tampilkan notifikasi error
-        Notification::make()
-        ->title('Error!')
-        ->body($e->getMessage())
-        ->danger()
-        ->send();
+            // Tampilkan notifikasi error
+            Notification::make()
+                ->title('Error!')
+                ->body($e->getMessage())
+                ->danger()
+                ->send();
         }
-
     }
 
     public function render()
     {
-        return view('livewire.public-form-riwayat-perawatan')
-        ->layout('components.layouts.app', ['title' => $this->title]);
+        return view('livewire.public-form-riwayat-perawatan', ['title' => $this->title]);
     }
 }
