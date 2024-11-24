@@ -1,5 +1,14 @@
 <div>
-    @if (session()->has('success'))
+    <form wire:submit.prevent="create">
+        {{ $this->form }}
+
+        {{-- <button type="submit" class="bg-slate-300">
+            Submit
+        </button> --}}
+    </form>
+    <x-filament-actions::modals />
+
+    {{-- @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
@@ -65,5 +74,5 @@
         </div>
 
         <button type="submit">Tambah</button>
-    </form>
+    </form> --}}
 </div>
