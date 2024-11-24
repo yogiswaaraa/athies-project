@@ -12,11 +12,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
-     <!-- Livewire Styles -->
-     @livewireStyles
+    <!-- Livewire Styles -->
+    @livewireStyles
 
-     <!-- Filament Styles -->
-     {{-- @filamentStyles --}}
+    <!-- Filament Styles -->
+    {{-- @filamentStyles --}}
 </head>
 
 <body>
