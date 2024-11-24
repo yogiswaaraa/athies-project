@@ -18,6 +18,9 @@ class UserReportResource extends Resource
     protected static ?string $model = UserReport::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Perawatan';
+    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationLabel = 'Laporan Permasalahan';
 
     public static function form(Form $form): Form
     {
@@ -74,8 +77,8 @@ class UserReportResource extends Resource
     {
         return [
             'index' => Pages\ListUserReports::route('/'),
-            'create' => Pages\CreateUserReport::route('/create'),
-            'edit' => Pages\EditUserReport::route('/{record}/edit'),
+            // 'create' => Pages\CreateUserReport::route('/create'),
+            // 'edit' => Pages\EditUserReport::route('/{record}/edit'),
         ];
     }
 }
