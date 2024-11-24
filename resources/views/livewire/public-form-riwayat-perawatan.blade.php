@@ -3,6 +3,34 @@
         Laporan Perawatan
     </h1>
     <form wire:submit.prevent="create" class="w-full max-w-screen-lg">
+        @if (session()->has('success'))
+            <div id="success-alert" class="mx-auto flex w-full max-w-lg justify-center py-2">
+                <div class="p-4 mb-4 w-full text-sm text-white bg-green-500 rounded-lg" role="alert">
+                    {{ session('success') }}
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Menghilangkan notifikasi setelah 3 detik
+                    setTimeout(() => {
+                        const alert = document.getElementById('success-alert');
+                        console.log('Alert element found:', alert); // Debugging: pastikan elemen ditemukan
+                        if (alert) {
+                            alert.style.transition = 'opacity 0.5s ease';
+                            alert.style.opacity = '0';
+
+                            // Hapus elemen setelah animasi selesai
+                            setTimeout(() => {
+                                console.log('Alert removed');
+                                alert.remove();
+                            }, 500);
+                        }
+                    }, 3000);
+                });
+            </script>
+        @endif
+        
         {{ $this->form }}
 
         <div class="mx-auto flex w-full max-w-lg justify-center pt-2">
