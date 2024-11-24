@@ -25,15 +25,12 @@ class MaintenanceHistoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('ac_unit_id')
-                    ->relationship('acUnit', 'id')
+                Forms\Components\Select::make('maintenance_schedule_id')
+                    ->relationship('maintenanceSchedule', 'id')
                     ->required()
                     ->searchable(true)
                     ->native(false)
                     ->preload(),
-                Forms\Components\DatePicker::make('maintenance_date')
-                    ->native(false)
-                    ->required(),
                 Forms\Components\TextInput::make('technician_name')
                     ->required(),
                 Forms\Components\Textarea::make('actions_taken')
@@ -51,10 +48,10 @@ class MaintenanceHistoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('acUnit.id')
+                Tables\Columns\TextColumn::make('maintenanceSchedule.id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('maintenance_date')
+                Tables\Columns\TextColumn::make('maintenanceSchedule.scheduled_date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('technician_name')
