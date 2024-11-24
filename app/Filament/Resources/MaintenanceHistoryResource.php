@@ -33,6 +33,9 @@ class MaintenanceHistoryResource extends Resource
                     ->preload(),
                 Forms\Components\TextInput::make('technician_name')
                     ->required(),
+                Forms\Components\TextInput::make('cost')
+                    ->numeric()
+                    ->required(),
                 Forms\Components\Textarea::make('actions_taken')
                     ->required()
                     ->columnSpanFull(),
@@ -58,6 +61,8 @@ class MaintenanceHistoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('result')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('cost')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
