@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MaintenanceHistory extends Model
 {
     protected $fillable = [
-        'ac_unit_id',
-        'maintenance_date',
+        'maintenance_schedule_id',
+        // 'maintenance_date',
         'technician_name',
         'actions_taken',
         'notes',
-        'result'
+        'result',
+        'cost'
     ];
 
     public static $result_enum_array = [
@@ -21,12 +22,12 @@ class MaintenanceHistory extends Model
         'partial' => "Pending",
         'failed' => "Gagal"
     ];
-    protected $casts = [
-        'maintenance_date' => 'date'
-    ];
+    // protected $casts = [
+    //     'maintenance_date' => 'date'
+    // ];
 
-    public function acUnit(): BelongsTo
+    public function maintenanceSchedule(): BelongsTo
     {
-        return $this->belongsTo(AcUnit::class);
+        return $this->belongsTo(MaintenanceSchedule::class);
     }
 }

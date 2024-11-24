@@ -25,16 +25,16 @@ class MaintenanceHistoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('ac_unit_id')
-                    ->relationship('acUnit', 'id')
+                Forms\Components\Select::make('maintenance_schedule_id')
+                    ->relationship('maintenanceSchedule', 'id')
                     ->required()
                     ->searchable(true)
                     ->native(false)
                     ->preload(),
-                Forms\Components\DatePicker::make('maintenance_date')
-                    ->native(false)
-                    ->required(),
                 Forms\Components\TextInput::make('technician_name')
+                    ->required(),
+                Forms\Components\TextInput::make('cost')
+                    ->numeric()
                     ->required(),
                 Forms\Components\Textarea::make('actions_taken')
                     ->required()
@@ -51,16 +51,15 @@ class MaintenanceHistoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('acUnit.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('maintenance_date')
+                Tables\Columns\TextColumn::make('maintenanceSchedule.scheduled_date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('technician_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('result')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('cost')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -95,7 +94,7 @@ class MaintenanceHistoryResource extends Resource
         return [
             'index' => Pages\ListMaintenanceHistories::route('/'),
             'create' => Pages\CreateMaintenanceHistory::route('/create'),
-            'edit' => Pages\EditMaintenanceHistory::route('/{record}/edit'),
+            // 'edit' => Pages\EditMaintenanceHistory::route('/{record}/edit'),
         ];
     }
 }

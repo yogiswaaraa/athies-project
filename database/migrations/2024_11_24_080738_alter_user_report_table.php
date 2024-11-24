@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ac_units', function (Blueprint $table) {
-            $table->removeColumn('current_temperature');
-            $table->removeColumn('efficiency_rating');
+        Schema::table('user_reports', function (Blueprint $table) {
+            $table->foreignId('ac_unit_id')->constrained()->onDelete('cascade');
+            $table->enum('result', ['accepted', 'reject', 'pending'])->default('pending');  
+            $table->text('rejection_notes')->nullable();  
         });
     }
 
@@ -22,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ac_units', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

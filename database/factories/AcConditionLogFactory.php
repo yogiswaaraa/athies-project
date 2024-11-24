@@ -18,8 +18,8 @@ class AcConditionLogFactory extends Factory
     public function definition(): array
     {
         $power_consumption = fake()->randomNumber(1, 10);
-        $temperature = fake()->randomFloat(2, 16, 30);
-        $efficiency_rating = $power_consumption / $temperature;
+        $temperature = fake()->numberBetween(16, 25);
+        $efficiency_rating = fake()->numberBetween(10, 12);
 
         return [
             'ac_unit_id' => AcUnit::factory(),
