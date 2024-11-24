@@ -5,8 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserReportResource\Pages;
 use App\Filament\Resources\UserReportResource\RelationManagers;
 use App\Models\UserReport;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -37,8 +39,22 @@ class UserReportResource extends Resource
                         ]
                     )
                     ->required(),
+                Forms\Components\TextInput::make('ac_unit_id')
+                    ->required(),
                 Forms\Components\TextInput::make('description')
                     ->required(),
+                Forms\Components\Select::make('result')
+                    ->options(
+                        [
+                            'accepted' => 'Diterima',
+                            'reject' => 'Ditolak',
+                            'pending' => 'Pending',
+                        ]
+                    )
+                    ->required(),
+                Forms\Components\TextInput::make('rejection_notes')
+                    ->required()
+                    ->hidden(fn (Get $get) => $get('result') !== 'reject'), // Menggunakan tipe `Get` yang benar
             ]);
     }
 
@@ -50,8 +66,16 @@ class UserReportResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('damage_type')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('ac_unit_id')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('result')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('rejection_notes')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
