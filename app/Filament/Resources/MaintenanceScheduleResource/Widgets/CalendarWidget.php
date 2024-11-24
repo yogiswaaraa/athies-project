@@ -26,7 +26,7 @@ class CalendarWidget extends FullCalendarWidget
             ->map(
                 fn(MaintenanceSchedule $schedule) => [
                     'id' => $schedule->id,
-                    'title' => $schedule->acUnit->unit_code, // Use the type (routine, repair, inspection) as the title
+                    'title' => $schedule->acUnit->unit_code . ' (' . ucfirst($schedule->type) . ')',  // Use the type (routine, repair, inspection) as the title
                     'start' => $schedule->scheduled_date->toIso8601String(), // Convert to ISO 8601 string format
                     'end' => $schedule->completed_date ? $schedule->completed_date->toIso8601String() : $schedule->scheduled_date->toIso8601String(), // Use completed_date if available
                     'url' => \App\Filament\Resources\MaintenanceScheduleResource::getUrl(
@@ -41,5 +41,5 @@ class CalendarWidget extends FullCalendarWidget
         return $event;
     }
 
-    protected static string $view = 'filament.resources.maintenance-schedule-resource.widgets.calendar-widget';
+    //protected static string $view = 'filament.resources.maintenance-schedule-resource.widgets.calendar-widget';
 }
