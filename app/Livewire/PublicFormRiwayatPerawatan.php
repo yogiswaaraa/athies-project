@@ -24,6 +24,8 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
 
     use InteractsWithForms;
 
+    public string $title = 'Form Riwayat Perawatan';
+
     public ?array $data = []; // State untuk data form
 
     public function mount(): void
@@ -35,7 +37,7 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
     {
         return $form
             ->schema([
-                Section::make('Form Pelaporan Perawatan')
+                Section::make('')
                     ->compact()
                     ->id('main section')
                     ->schema([
@@ -52,13 +54,13 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
                             ->options(MaintenanceHistory::$result_enum_array)
                             ->required(),
                     ])
-                    ->footerActions([
-                        Action::make('submit')
-                        ->label('Submit')
-                        ->action(function () {
-                             $this->create(); // Memanggil fungsi create()
-                        }),
-                    ])
+                    // ->footerActions([
+                    //     Action::make('submit')
+                    //     ->label('Submit')
+                    //     ->action(function () {
+                    //          $this->create(); // Memanggil fungsi create()
+                    //     }),
+                    // ])
                     ->extraAttributes([
                         'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md text-white font-bold',
                     ]),
@@ -104,8 +106,7 @@ class PublicFormRiwayatPerawatan extends Component implements HasForms
 
     public function render()
     {
-        return view('livewire.public-form-riwayat-perawatan', [
-
-        ]);
+        return view('livewire.public-form-riwayat-perawatan')
+        ->layout('components.layouts.app', ['title' => $this->title]);
     }
 }
