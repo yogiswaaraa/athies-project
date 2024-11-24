@@ -2,53 +2,111 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
+use App\Models\User;
+use App\Models\MaintenanceSchedule;
 use App\Models\MaintenanceHistory;
+use Livewire\Component;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Illuminate\Contracts\View\View;
+use Filament\Notifications\Notification;
 
-class PublicFormRiwayatPerawatan extends Component
+
+class PublicFormRiwayatPerawatan extends Component implements HasForms
 {
-    public $ac_unit_id;
-    public $maintenance_date;
-    public $technician_name;
-    public $actions_taken;
-    public $notes;
-    public $result;
 
-    // Opsi hasil (result)
-    public $result_enum_array = [
-    'success' => 'Success',
-    'pending' => 'Pending',
-    'failed' => 'Failed',
-    ];
+    use InteractsWithForms;
 
-    protected $rules = [
-    'ac_unit_id' => 'required|exists:ac_units,id',
-    'maintenance_date' => 'required|date',
-    'technician_name' => 'required|string|min:3',
-    'actions_taken' => 'required|string|min:10',
-    'notes' => 'nullable|string',
-    'result' => 'required|string|in:success,pending,failed',
-    ];
+    public string $title = 'Form Riwayat Perawatan';
 
-    public function submit()
+    public ?array $data = []; // State untuk data form
+
+    public function mount(): void
     {
-    $this->validate();
+        $this->form->fill($this->data ?? []);
+    }
 
-    MaintenanceHistory::create([
-    'ac_unit_id' => $this->ac_unit_id,
-    'maintenance_date' => $this->maintenance_date,
-    'technician_name' => $this->technician_name,
-    'actions_taken' => $this->actions_taken,
-    'notes' => $this->notes,
-    'result' => $this->result,
-    ]);
+    public function form(Form $form):form
+    {
+        return $form
+            ->schema([
+                Section::make('')
+                    ->compact()
+                    ->id('main section')
+                    ->schema([
+                        Select::make('maintenance_schedule_id')
+                            ->options(MaintenanceSchedule::pluck('scheduled_date', 'id')->toArray())
+                            ->required(),
+                        TextInput::make('technician_name')
+                            ->required(),
+                        Textarea::make('actions_taken')
+                            ->required(),
+                        Textarea::make('notes')
+                            ->columnSpanFull(),
+                        Select::make('result')
+                            ->options(MaintenanceHistory::$result_enum_array)
+                            ->required(),
+                    ])
+                    // ->footerActions([
+                    //     Action::make('submit')
+                    //     ->label('Submit')
+                    //     ->action(function () {
+                    //          $this->create(); // Memanggil fungsi create()
+                    //     }),
+                    // ])
+                    ->extraAttributes([
+                        'class' => 'max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md text-white font-bold',
+                    ]),
+            ])
+            ->statePath('data');
+    }
 
-    session()->flash('success', 'Data berhasil ditambahkan!');
-    $this->reset();
+    public function create(): void
+    {
+        try {
+        // Simpan ke database menggunakan data yang sudah ada
+        MaintenanceHistory::create([
+        'maintenance_schedule_id' => $this->data['maintenance_schedule_id'],
+        'technician_name' => $this->data['technician_name'],
+        'actions_taken' => $this->data['actions_taken'],
+        'notes' => $this->data['notes'],
+        'result' => $this->data['result'],
+        'maintenance_date' => now(), // tambahkan tanggal maintenance jika diperlukan
+        ]);
+
+        // Reset form
+        $this->form->fill();
+
+        // Tampilkan notifikasi sukses
+        Notification::make()
+        ->title('Data berhasil disimpan!')
+        ->success()
+        ->send();
+
+        } catch (\Exception $e) {
+        // Log error
+        logger('Error saving maintenance history: ' . $e->getMessage());
+
+        // Tampilkan notifikasi error
+        Notification::make()
+        ->title('Error!')
+        ->body($e->getMessage())
+        ->danger()
+        ->send();
+        }
+
     }
 
     public function render()
     {
-    return view('livewire.public-form-riwayat-perawatan');
+        return view('livewire.public-form-riwayat-perawatan')
+        ->layout('components.layouts.app', ['title' => $this->title]);
     }
 }

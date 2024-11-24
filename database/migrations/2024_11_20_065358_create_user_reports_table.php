@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name_user")->nullable();
             $table->enum('damage_type', ["not turning on", "not cooling", "noisy"])->nullable(); // Type of damage
-            $table->text('description')->nullable(); // Description or user comments            
+            $table->text('description')->nullable(); // Description or user comments      
             $table->timestamps();
         });
     }
